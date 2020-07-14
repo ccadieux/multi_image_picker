@@ -499,7 +499,7 @@ public class MultiImagePickerPlugin implements
                 .setCamera(enableCamera)
                 .setRequestCode(REQUEST_CODE_CHOOSE)
                 .setSelectedImages(selectedUris)
-                .exceptMimeType(listOf(MimeType.GIF))
+                .exceptMimeType(Arrays.asList(MimeType.GIF))
                 .setIsUseDetailView(useDetailsView.equals("true"))
                 .setReachLimitAutomaticClose(autoCloseOnSelectionLimit.equals("true"))
                 .isStartInAllView(startInAllView.equals("true"));
