@@ -197,9 +197,9 @@ public class MultiImagePickerPlugin implements
 
         @Override
         protected void onPostExecute(ByteBuffer buffer) {
-            super.onPostExecute(buffer);
             this.messenger.send("multi_image_picker/image/" + this.identifier + ".original", buffer);
             buffer.clear();
+            super.onPostExecute(buffer);
         }
     }
 
