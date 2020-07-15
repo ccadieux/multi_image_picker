@@ -185,25 +185,25 @@ public class MultiImagePickerPlugin implements
                 bytesArray = bitmapStream.toByteArray();
                 bitmap.recycle();
                 bitmapStream.close();
+                assert bytesArray != null;
+                final ByteBuffer buffer = ByteBuffer.allocateDirect(bytesArray.length);
+                buffer.put(bytesArray);
+                return buffer;
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
 
-            assert bytesArray != null;
-            final ByteBuffer buffer = ByteBuffer.allocateDirect(bytesArray.length);
-            buffer.put(bytesArray);
-            return buffer;
+
         }
 
         @Override
         protected void onPostExecute(ByteBuffer buffer) {
-
-            try {
-                super.onPostExecute(buffer);
-                this.messenger.send("multi_image_picker/image/" + this.identifier + ".original", buffer);
+            super.onPostExecute(buffer);
+            if(buffer != null) {
+                this.messenger
+                    .send("multi_image_picker/image/" + this.identifier + ".original", buffer);
                 buffer.clear();
-            } catch (java.lang.Exception e) {
-                e.printStackTrace();
             }
         }
     }
